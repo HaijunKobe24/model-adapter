@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        /* stage('JunitTest') {
+            steps {
+                sh '$(aws ecr get-login --no-include-email)'
+                sh 'git checkout test'
+                sh 'git pull'
+                sh 'docker pull openjdk:8-jdk'
+                sh 'sh model-adapter-api/builds/junit/run_junit_test.sh'
+            }
+        } */
+        stage('Build') {
+            steps {
+                sh '$(aws ecr get-login --no-include-email)'
+                sh 'git checkout test'
+                sh 'git pull origin test'
+                sh 'sh model-adapter-api/builds/build.sh ${BUILD_NUMBER} test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh ' sh model-adapter-api/builds/deploy/deploy.sh test_ma-api_v${BUILD_NUMBER} test model-adapter/model-adapter-api'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Build success!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}

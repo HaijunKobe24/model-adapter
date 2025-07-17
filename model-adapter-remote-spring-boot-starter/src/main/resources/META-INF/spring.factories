@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishAutoConfiguration,\
+cn.unipus.modeladapter.remote.starter.http.course.config.CourseAutoConfiguration\

@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ma-api-ingress
+  namespace: dev
+  annotations:
+    kubernetes.io/ingress.class: traefik-dev
+spec:
+  rules:
+    - host: ma-dev.unipus.cn
+      http:
+        paths:
+          - path: /api
+            backend:
+              serviceName: ma-api
+              servicePort: 8081

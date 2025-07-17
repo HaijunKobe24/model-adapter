@@ -1,0 +1,72 @@
+{
+  "groups": [
+    {
+      "name": "http.course",
+      "type": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties"
+    },
+    {
+      "name": "http.ipublish",
+      "type": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "http.course.base-url",
+      "type": "java.lang.String",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties"
+    },
+    {
+      "name": "http.course.struct-sync-uri",
+      "type": "java.lang.String",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties"
+    },
+    {
+      "name": "http.course.timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties"
+    },
+    {
+      "name": "http.course.token",
+      "type": "cn.unipus.modeladapter.remote.starter.http.course.config.TokenConfig",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.course.config.CourseRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.app-id",
+      "type": "java.lang.Long",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.base-url",
+      "type": "java.lang.String",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.cache-expire-time",
+      "type": "java.lang.Long",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.cache-size",
+      "type": "java.lang.Long",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.reader-type",
+      "type": "java.lang.Integer",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    },
+    {
+      "name": "http.ipublish.token-header",
+      "type": "java.lang.String",
+      "sourceType": "cn.unipus.modeladapter.remote.starter.http.ipublish.config.IPublishRemoteProperties"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  main:
+    build: .
+    volumes:
+      - ../../../:/var
+    working_dir: /var
+    command: ["sh", "-c", "pwd && ls && while true; do echo waiting test; sleep 1; done"]

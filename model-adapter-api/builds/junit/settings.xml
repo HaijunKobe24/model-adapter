@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<pluginGroups>
+		<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+	</pluginGroups>
+
+	<proxies>
+	</proxies>
+
+	<servers>
+		<server>
+			<id>nexus-releases</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+		<server>
+			<id>nexus-snapshots</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+
+
+	</servers>
+
+	<mirrors>
+	</mirrors>
+
+	<profiles>
+<!--		<profile>-->
+<!--			<id>edu</id>-->
+<!--			<activation>-->
+<!--				<activeByDefault>false</activeByDefault>-->
+<!--				<jdk>1.7</jdk>-->
+<!--			</activation>-->
+<!--			<repositories>-->
+<!--				&lt;!&ndash; 私有库地址&ndash;&gt;-->
+
+<!--				<repository>-->
+<!--					<id>nexus</id>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>-->
+<!--					<releases>-->
+<!--						<enabled>true</enabled>-->
+<!--					</releases>-->
+<!--					<snapshots>-->
+<!--						<enabled>true</enabled>-->
+<!--					</snapshots>-->
+<!--				</repository>-->
+<!--				<repository>-->
+<!--					<id>nexus-releases</id>-->
+<!--					<name>Local Nexus Repository</name>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/repositories/releases</url>-->
+<!--				</repository>-->
+
+<!--				<repository>-->
+<!--					<id>nexus-snapshots</id>-->
+<!--					<name>Local Nexus Repository</name>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/repositories/snapshots</url>-->
+<!--				</repository>-->
+<!--			</repositories>-->
+<!--			<pluginRepositories>-->
+<!--				&lt;!&ndash;插件库地址&ndash;&gt;-->
+<!--				<pluginRepository>-->
+<!--					<id>nexus</id>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>-->
+<!--					<releases>-->
+<!--						<enabled>true</enabled>-->
+<!--					</releases>-->
+<!--					<snapshots>-->
+<!--						<enabled>true</enabled>-->
+<!--					</snapshots>-->
+<!--				</pluginRepository>-->
+<!--			</pluginRepositories>-->
+
+
+<!--		</profile>-->
+
+		<profile>
+			<id>edu</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<jdk>1.7</jdk>
+			</activation>
+			<repositories>
+				<repository>
+					<id>nexus</id>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>nexus</id>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+<!--		<profile>-->
+<!--			<id>central-repos</id>-->
+<!--			<repositories>-->
+<!--				<repository>-->
+<!--					<id>central</id>-->
+<!--					<name>central</name>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>-->
+<!--					<releases>-->
+<!--						<enabled>true</enabled>-->
+<!--						<updatePolicy>always</updatePolicy>-->
+<!--					</releases>-->
+<!--					<snapshots>-->
+<!--						<enabled>true</enabled>-->
+<!--						<updatePolicy>always</updatePolicy>-->
+<!--					</snapshots>-->
+<!--				</repository>-->
+
+<!--				<repository>-->
+<!--					<id>ceonpl</id>-->
+<!--					<name>ceonpl</name>-->
+<!--					<url>http://nexus-hw.unipus.cn:8081/nexus/content/repositories/ceon_pl/</url>-->
+<!--					<releases>-->
+<!--						<enabled>true</enabled>-->
+<!--						<updatePolicy>always</updatePolicy>-->
+<!--					</releases>-->
+<!--					<snapshots>-->
+<!--						<enabled>true</enabled>-->
+<!--						<updatePolicy>always</updatePolicy>-->
+<!--					</snapshots>-->
+<!--				</repository>-->
+<!--			</repositories>-->
+<!--		</profile>-->
+
+		<profile>
+			<id>central-repos</id>
+			<repositories>
+				<repository>
+					<id>central</id>
+					<name>central</name>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/repositories/central/</url>
+					<releases><enabled>true</enabled><updatePolicy>never</updatePolicy></releases>
+					<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+				</repository>
+			</repositories>
+		</profile>
+
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>edu</activeProfile>
+		<activeProfile>central-repos</activeProfile>
+		<activeProfile>sonar</activeProfile>
+	</activeProfiles>
+
+
+</settings>

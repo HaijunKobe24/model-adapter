@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:mysql://10.103.6.172:3306/model_adapter_test?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useAffectedRows=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: examuser
+    password: De17_eX02
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      validation-timeout: 5000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+      auto-commit: true
+
+
+grpc:
+  enabled: true
+  port: 6565
+  enable-reflection: true
+  executor:
+    core-pool-size: 4
+    max-pool-size: 16
+    keep-alive-time: 60000
+    queue-size: 500
+
+http:
+  ipublish:
+    enabled: true
+    base-url: https://ipublish-test.unipus.cn/api
+    timeout: 3
+    token-header: authorization
+    app-id: 1
+    reader-type: 2
+    uri:
+      access-token-uri: /backend/auth/getAccessToken
+      copy-content-uri: /reader/customContent/copyCustomContentByBizIds
+      get-published-content-uri: /reader/customContent/getPublishedCustomContentByBizIds
+      get-editing-content-uri: /reader/customContent/getEditingCustomContentSimpleByBizIds
+      publish-content-uri: /reader/customContent/publishCustomContent
+      save-content-uri: /reader/customContent/saveCustomContent
+      get-book-struct-uri: /backend/book/getBookStruct?bookId=%s
+      delete-content-uri: /reader/customContent/deleteCustomContentByBizIds
+  course:
+    enabled: true
+    base-url: http://cms-platform.ucontent-test:8080
+    timeout: 3
+    struct-sync-uri: /api/v1/ipublish/struct/sync
+    token:
+      secret: a824b379f126b8b7aa5e33dee83fb0a05aa7462c
+      iss: c4f772063dcfa98e9c50
+      aud: edx.unipus.cn
+      header-name: x-annotator-auth-token

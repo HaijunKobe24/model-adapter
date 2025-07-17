@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<pluginGroups>
+		<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+	</pluginGroups>
+
+	<servers>
+		<server>
+			<id>nexus-releases</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+		<server>
+			<id>nexus-snapshots</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+	</servers>
+
+	<profiles>
+		<profile>
+			<id>edu</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<jdk>1.7</jdk>
+			</activation>
+			<repositories>
+				<repository>
+					<id>nexus</id>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>nexus</id>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+		<profile>
+			<id>central-repos</id>
+			<repositories>
+				<repository>
+					<id>central</id>
+					<name>central</name>
+					<url>http://nexus-hw.unipus.cn:8081/nexus/content/repositories/central/</url>
+					<releases><enabled>true</enabled><updatePolicy>never</updatePolicy></releases>
+					<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+				</repository>
+			</repositories>
+		</profile>
+
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>edu</activeProfile>
+	</activeProfiles>
+</settings>

@@ -1,0 +1,10 @@
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/db/repository/BookRepository.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/common/constant/CourseConstants.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/db/entity/BookUnit.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/db/entity/Book.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/common/constant/ContentTypeEnum.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/common/constant/UnitStatus.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/db/repository/BookUnitRepository.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/service/BookService.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/common/utils/BookUtils.java
+/Users/kobe/MyFiles/work/iTest/git/model-adapter/model-adapter-base/src/main/java/cn/unipus/modeladapter/base/common/constant/ContentStatusEnum.java

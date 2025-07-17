@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "Model.proto";
+
+package cn.unipus.modeladapter.api.proto.client.service;
+option java_multiple_files = true;
+
+service CourseService {
+    // 1. 复制课程接口
+    rpc copyCourse (cn.unipus.modeladapter.api.proto.client.model.CopyCourseRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.CopyCourseResponsePO);
+
+    // 2. 新建单元接口
+    rpc createUnit (cn.unipus.modeladapter.api.proto.client.model.CreateUnitRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.CreateUnitResponsePO);
+
+    // 3. 课程发布接口
+    rpc publishCourse (cn.unipus.modeladapter.api.proto.client.model.PublishCourseRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.PublishCourseResponsePO);
+
+    // 4、查询单元状态接口
+    rpc queryUnitStatus (cn.unipus.modeladapter.api.proto.client.model.QueryUnitStatusRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.QueryUnitStatusResponsePO);
+
+    // 获取官方教材依赖的自建教材结构
+    rpc customCourseStruct (cn.unipus.modeladapter.api.proto.client.model.CustomCourseStructRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.CustomCourseStructResponsePO);
+
+    // 修改单元名称
+    rpc updateUnitName (cn.unipus.modeladapter.api.proto.client.model.UpdateUnitNameRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.UpdateUnitNameResponsePO);
+
+    // 删除单元
+    rpc deleteUnit (cn.unipus.modeladapter.api.proto.client.model.DeleteUnitRequestPO) returns (cn.unipus.modeladapter.api.proto.client.model.DeleteUnitResponsePO);
+}

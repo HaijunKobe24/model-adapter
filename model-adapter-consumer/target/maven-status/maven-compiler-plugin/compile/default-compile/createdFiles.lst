@@ -1,0 +1,4 @@
+cn/unipus/modeladapter/consumer/config/KafkaConsumerConfig.class
+cn/unipus/modeladapter/consumer/listener/IPublishContentListener.class
+cn/unipus/modeladapter/consumer/config/KafkaConsumerProperties.class
+cn/unipus/modeladapter/consumer/model/IPublishContentMsg.class
