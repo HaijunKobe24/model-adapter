@@ -8,10 +8,15 @@ public interface CourseConstants {
 
     String BOOK_ID_FMT = "%s_%s";
 
+    String SOURCE_COURSE = "UCOURSE";
+
     /**
      * 是否官方教材
-     **/
-    interface OFFICIAL_FlAG {
+     *
+     * @author haijun.gao
+     * @date 2025/7/17
+     */
+    interface OfficialFlag {
         int YES = 1;
         int NO = 0;
     }

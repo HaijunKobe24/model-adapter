@@ -36,19 +36,19 @@ message PublishCourseResponsePO {
     Status status = 1;
 }
 
-//修改单元名称请求消息
+// 修改单元名称请求消息
 message UpdateUnitNameRequestPO {
     string bookId = 1; // 教材ID
     string unitId = 2; // 单元ID
     string name = 3; // 新单元名称
 }
 
-//修改单元名称响应消息
+// 修改单元名称响应消息
 message UpdateUnitNameResponsePO {
     Status status = 1;
 }
 
-//删除单元请求消息
+// 删除单元请求消息
 message DeleteUnitRequestPO {
     string bookId = 1; // 教材ID
     string unitId = 2; // 单元ID

@@ -1,21 +1,19 @@
-mq:
-  provider: kafka
-
-kafka:
-  servers: 10.103.6.146:9092,10.103.6.243:9092,10.103.6.71:9092
-  producer:
-    retries: 0
-    batch-size: 4096
-    buffer-memory: 40960
-    linger: 1
-  consumer:
-    enabled: true
-    session-timeout: 15000
-    poll-timeout: 4000
-    enable-auto-commit: true
-    auto-commit-interval: 100
-    auto-offset-reset: earliest
-    ipublish-content:
-      topic: test-ipublish-custom-content-Published
-      group: model-adapter
-      concurrency: 1
+spring:
+  kafka:
+    bootstrap-servers: 10.103.6.146:9092,10.103.6.243:9092,10.103.6.71:9092
+    producer:
+      acks: all
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: model-adapter
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      ipublish-content:
+        topic: test-ipublish-custom-content-Published
+        group: model-adapter
+        concurrency: 1
+        max-records: 1

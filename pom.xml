@@ -24,7 +24,6 @@
         <grpc-spring-boot-starter.version>4.4.5</grpc-spring-boot-starter.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <guava.version>23.0</guava.version>
-        <qs-common.version>2.10.11-ms</qs-common.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <jwt.version>4.15</jwt.version>
@@ -153,132 +152,11 @@
                 </exclusions>
             </dependency>
 
-
+            <!-- Hutool -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
-            </dependency>
-
-            <!-- QS Common -->
-            <dependency>
-                <groupId>cn.unipus</groupId>
-                <artifactId>qs-common</artifactId>
-                <version>${qs-common.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok-maven-plugin</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.yaml</groupId>
-                        <artifactId>snakeyaml</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.kafka</groupId>
-                        <artifactId>spring-kafka</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.elasticsearch</groupId>
-                        <artifactId>elasticsearch</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.elasticsearch.client</groupId>
-                        <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.elasticsearch.client</groupId>
-                        <artifactId>elasticsearch-rest-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.fasterxml.jackson.core</groupId>
-                        <artifactId>jackson-databind</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-web</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-aop</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-webflux</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-redis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-commons</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>redis.clients</groupId>
-                        <artifactId>jedis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>software.amazon.awssdk</groupId>
-                        <artifactId>s3</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>software.amazon.awssdk</groupId>
-                        <artifactId>utils</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.retry</groupId>
-                        <artifactId>spring-retry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.qiniu</groupId>
-                        <artifactId>qiniu-java-sdk</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.amazonaws</groupId>
-                        <artifactId>amazon-kinesis-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.flipkart.zjsonpatch</groupId>
-                        <artifactId>zjsonpatch</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.xerial.snappy</groupId>
-                        <artifactId>snappy-java</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.github.jsqlparser</groupId>
-                        <artifactId>jsqlparser</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.mybatis</groupId>
-                        <artifactId>mybatis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.mybatis.spring.boot</groupId>
-                        <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.redisson</groupId>
-                        <artifactId>redisson</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.ctrip.framework.apollo</groupId>
-                        <artifactId>apollo-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.jaegertracing</groupId>
-                        <artifactId>jaeger-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.opentracing.contrib</groupId>
-                        <artifactId>opentracing-grpc</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

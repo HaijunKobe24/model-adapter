@@ -4,7 +4,6 @@
 [![Maven](https://img.shields.io/badge/Maven-3.6+-red.svg)](https://maven.apache.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.5.15-green.svg)](https://spring.io/projects/spring-boot)
 [![gRPC](https://img.shields.io/badge/gRPC-1.37.0-orange.svg)](https://grpc.io/)
-[![qs-common](https://img.shields.io/badge/qs--common-2.10.11--ms-blue.svg)](https://git.unipus.cn/birdflock/archaeopteryx)
 [![License](https://img.shields.io/badge/License-Private-yellow.svg)]()
 
 Model Adapter是一个企业级多模块Maven项目，提供数据库抽象和模型管理功能，专注于教材内容管理和课程数据适配。该项目采用微服务架构设计，支持gRPC和REST API，集成了教材发布系统(iPublish)、课程管理和内容同步等核心功能。
@@ -52,7 +51,6 @@ model-adapter/
 - **Java版本**：Java 8
 - **代码生成**：Lombok, MapStruct 1.5.5
 - **认证授权**：JWT (Nimbus JOSE JWT 4.15)
-- **企业级组件**：QS Common 2.10.11-ms
 
 ## 📦 快速开始
 
@@ -337,18 +335,6 @@ kafka:
 </dependency>
 ```
 
-### QS Common集成
-
-项目集成了最新版本的QS Common：
-
-```xml
-<dependency>
-    <groupId>cn.unipus</groupId>
-    <artifactId>qs-common</artifactId>
-    <version>2.10.11-ms</version>
-</dependency>
-```
-
 ### 使用示例
 
 ```java
@@ -467,7 +453,6 @@ grpcurl -plaintext -d '{"bookId":"book123","openId":"user123"}' \
 - **Spring Boot最佳实践**: 遵循Spring Boot官方建议
 - **gRPC服务**: 使用`@GRpcService`注解定义服务
 - **拦截器顺序**: 使用`@Order`注解控制拦截器执行顺序
-- **QS Common集成**: 充分利用QS Common提供的企业级组件
 
 ### 新增功能流程
 
@@ -489,7 +474,6 @@ grpcurl -plaintext -d '{"bookId":"book123","openId":"user123"}' \
     <spring-boot.version>2.5.15</spring-boot.version>
     <grpc.version>1.37.0</grpc.version>
     <protobuf.version>3.7.1</protobuf.version>
-    <qs-common.version>2.10.11-ms</qs-common.version>
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <jwt.version>4.15</jwt.version>
 </properties>
@@ -523,11 +507,9 @@ spring.jpa.properties.hibernate.format_sql=true
 - ✅ JWT认证集成
 - ✅ Docker容器化部署
 - ✅ Jenkins CI/CD流水线
-- ✅ QS Common 2.10.11-ms 集成
 - ✅ 数据库连接池优化 (HikariCP)
 
 ### 最新更新 (当前版本)
-- 🆕 升级QS Common至2.10.11-ms版本
 - 🆕 优化数据库配置和连接池参数
 - 🆕 增强gRPC拦截器异常处理
 - 🆕 完善Kafka集群配置

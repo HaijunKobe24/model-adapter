@@ -1,13 +1,11 @@
 package cn.unipus.modeladapter.api.grpc.interceptor;
 
+import cn.hutool.core.exceptions.ValidateException;
 import cn.unipus.modeladapter.remote.starter.common.exception.HttpException;
-import cn.unipus.qs.common.em.ApiCodeInfo;
-import cn.unipus.qs.common.em.CommonApiCodeEnum;
-import cn.unipus.qs.common.exception.BusinessException;
-import cn.unipus.qs.common.exception.ValidateException;
 import com.google.common.collect.Maps;
 import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.lognet.springboot.grpc.GRpcGlobalInterceptor;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
@@ -19,6 +17,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.function.Function;
+
+import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.PARAM_ERROR;
+import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.SERVER_ERROR;
 
 /**
  * gRPC统一异常处理拦截器
@@ -34,27 +35,34 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
     /**
      * 参数错误异常获取器
      */
-    private static final Function<Exception, ApiCodeInfo> PARAM_ERR_GETTER =
-            e -> CommonApiCodeEnum.PARAM_CHECK_ERROR;
+    private static final Function<Exception, Pair<Integer, String>> PARAM_ERR_GETTER = e -> Pair.of(
+            PARAM_ERROR.getCode(), PARAM_ERROR.getMsg());
 
     /**
      * 服务端异常获取器
      */
-    private static final Function<Exception, ApiCodeInfo> SERVER_ERR_GETTER =
-            e -> CommonApiCodeEnum.SERVER_ERROR;
+    private static final Function<Exception, Pair<Integer, String>> SERVER_ERR_GETTER =
+            e -> Pair.of(
+            SERVER_ERROR.getCode(), SERVER_ERROR.getMsg());
 
     /**
      * 异常类型-异常码获取器 映射关系
      */
-    private static final Map<Class<? extends Exception>, Function<Exception, ApiCodeInfo>> EXP_MAP = Maps.newHashMap();
+    private static final Map<Class<? extends Exception>, Function<Exception, Pair<Integer,
+            String>>> EXP_MAP = Maps.newHashMap();
 
     static {
         EXP_MAP.put(MethodArgumentNotValidException.class, PARAM_ERR_GETTER);
         EXP_MAP.put(BindException.class, PARAM_ERR_GETTER);
         EXP_MAP.put(ConstraintViolationException.class, PARAM_ERR_GETTER);
-        EXP_MAP.put(ValidateException.class, e -> ((ValidateException) e).getApiCodeInfo());
-        EXP_MAP.put(BusinessException.class, e -> getApiCode(((BusinessException) e).getCode(), e));
-        EXP_MAP.put(HttpException.class, e -> getApiCode(((HttpException) e).getCode(), e));
+        EXP_MAP.put(ValidateException.class, e -> {
+            ValidateException exp = (ValidateException) e;
+            return Pair.of(exp.getStatus(), exp.getMessage());
+        });
+        EXP_MAP.put(HttpException.class, e -> {
+            HttpException exp = (HttpException) e;
+            return Pair.of(exp.getCode(), exp.getMessage());
+        });
     }
 
     @Override
@@ -123,12 +131,13 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
         Method newBuilderMethod = statusClass.getMethod("newBuilder");
         Object statusBuilder = newBuilderMethod.invoke(null);
         // 获取异常信息
-        ApiCodeInfo apiCode = EXP_MAP.getOrDefault(exp.getClass(), SERVER_ERR_GETTER).apply(exp);
+        Pair<Integer, String> pair = EXP_MAP.getOrDefault(exp.getClass(), SERVER_ERR_GETTER)
+                .apply(exp);
         // 设置错误码和消息
         Method setCodeMethod = statusBuilder.getClass().getMethod("setCode", int.class);
-        Object builderWithCode = setCodeMethod.invoke(statusBuilder, apiCode.getCode());
+        Object builderWithCode = setCodeMethod.invoke(statusBuilder, pair.getLeft());
         Method setMsgMethod = builderWithCode.getClass().getMethod("setMsg", String.class);
-        Object builderWithMsg = setMsgMethod.invoke(builderWithCode, apiCode.getMessage());
+        Object builderWithMsg = setMsgMethod.invoke(builderWithCode, pair.getRight());
         // 构建最终的Status对象
         Method buildMethod = builderWithMsg.getClass().getMethod("build");
         return buildMethod.invoke(builderWithMsg);
@@ -207,26 +216,5 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
         Field prototypeField = responseMarshaller.getClass().getDeclaredField("defaultInstance");
         prototypeField.setAccessible(true);
         return prototypeField.get(responseMarshaller).getClass();
-    }
-
-    /**
-     * 获取ApiCodeInfo
-     *
-     * @param code      错误码
-     * @param exception 异常
-     * @return ApiCodeInfo
-     */
-    private static ApiCodeInfo getApiCode(int code, Exception exception) {
-        return new ApiCodeInfo() {
-            @Override
-            public int getCode() {
-                return code;
-            }
-
-            @Override
-            public String getMessage() {
-                return exception.getMessage();
-            }
-        };
     }
 }

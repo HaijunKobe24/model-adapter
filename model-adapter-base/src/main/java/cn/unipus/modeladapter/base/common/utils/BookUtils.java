@@ -4,7 +4,6 @@ import cn.unipus.modeladapter.base.common.constant.CourseConstants;
 import cn.unipus.modeladapter.remote.starter.http.course.dto.BlockStructDTO;
 import cn.unipus.modeladapter.remote.starter.http.course.dto.UnitStructDTO;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.dto.*;
-import cn.unipus.qs.common.em.SourceEnum;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,9 +24,8 @@ public class BookUtils {
      *
      * @return 新的教材ID
      */
-    @SuppressWarnings("deprecation")
     public static String genBookId() {
-        return String.format(CourseConstants.BOOK_ID_FMT, SourceEnum.UCOURSE.name(),
+        return String.format(CourseConstants.BOOK_ID_FMT, CourseConstants.SOURCE_COURSE,
                 UUID.randomUUID());
     }
 
@@ -36,9 +34,8 @@ public class BookUtils {
      *
      * @return 是否
      */
-    @SuppressWarnings("deprecation")
     public static boolean isCustomBookId(String id) {
-        return StringUtils.startsWith(id, SourceEnum.UCOURSE.name());
+        return StringUtils.startsWith(id, CourseConstants.SOURCE_COURSE);
     }
 
 
@@ -83,7 +80,7 @@ public class BookUtils {
             Map<String, QuestionGroupDTO> questionMap = buildQuestionMap(
                     chapter.getQuestionGroupList());
             unit.setChildren(buildBlockStructList(chapter.getAllNodeTree(), questionMap,
-                    CourseConstants.OFFICIAL_FlAG.YES));
+                    CourseConstants.OfficialFlag.YES));
             return unit;
         }).collect(Collectors.toList());
     }
@@ -109,9 +106,8 @@ public class BookUtils {
             // 构建questionMap
             Map<String, QuestionGroupDTO> questionMap = buildQuestionMap(
                     simpleDTO.getQuestionList());
-            unit.setChildren(
-                    buildBlockStructList(simpleDTO.getTotalStructNodeTree(), questionMap,
-                            CourseConstants.OFFICIAL_FlAG.NO));
+            unit.setChildren(buildBlockStructList(simpleDTO.getTotalStructNodeTree(), questionMap,
+                    CourseConstants.OfficialFlag.NO));
             unitStructDTOList.add(unit);
         }
         return unitStructDTOList;
@@ -174,7 +170,7 @@ public class BookUtils {
             block.setId(node.getId());
             block.setText(node.getText());
             block.setType(node.getType());
-            if (Objects.equals(createdType, CourseConstants.OFFICIAL_FlAG.NO)) {
+            if (Objects.equals(createdType, CourseConstants.OfficialFlag.NO)) {
                 block.setCreatedType(CourseConstants.CREATED_TYPE);
             }
             block.setWordCount(node.getWordCount() == null ? null : node.getWordCount().intValue());

@@ -27,8 +27,3 @@ spring:
           batch_size: 20
         order_inserts: true
         order_updates: true
-
-web:
-  response:
-    body-advice-package: cn.unipus
-    exception-handler-enabled: true

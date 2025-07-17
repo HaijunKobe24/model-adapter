@@ -23,7 +23,6 @@
             <groupId>cn.unipus</groupId>
             <artifactId>model-adapter-base</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.unipus</groupId>
             <artifactId>model-adapter-consumer</artifactId>
