@@ -153,7 +153,7 @@ public class IPublishTemplate {
         log.info("saveCustomContent response：{}", response);
         ExceptionUtils.checkAndThrow(response, true);
         if (!Objects.requireNonNull(response).getData()) {
-            throw new HttpException(CodeEnum.SERVER_ERROR);
+            throw new HttpException(CodeEnum.REMOTE_SERVER_ERROR);
         }
     }
 
@@ -175,7 +175,7 @@ public class IPublishTemplate {
         log.info("deleteCustomContentByBizIds response：{}", response);
         ExceptionUtils.checkAndThrow(response, true);
         if (!Objects.requireNonNull(response).getData()) {
-            throw new HttpException(CodeEnum.SERVER_ERROR);
+            throw new HttpException(CodeEnum.REMOTE_SERVER_ERROR);
         }
     }
 

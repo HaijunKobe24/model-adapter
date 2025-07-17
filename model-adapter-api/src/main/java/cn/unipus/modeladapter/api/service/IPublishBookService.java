@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.PARAM_ERROR;
+import static cn.unipus.modeladapter.base.common.constant.CodeEnum.PARAM_ERROR;
 
 /**
  * iPublish 教材服务

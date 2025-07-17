@@ -23,7 +23,7 @@ public class ExceptionUtils {
     public static void checkAndThrow(HttpResponse<?> response, boolean validData) {
         if (response == null) {
             log.error("HttpResponse is null");
-            throw new HttpException(CodeEnum.SERVER_ERROR);
+            throw new HttpException(CodeEnum.REMOTE_SERVER_ERROR);
         }
         if (!response.isSuccess()) {
             log.error("HttpResponse is not success, response: {}", response);
@@ -31,7 +31,7 @@ public class ExceptionUtils {
         }
         if (validData && response.getData() == null) {
             log.error("HttpResponse data is null, response: {}", response);
-            throw new HttpException(CodeEnum.SERVER_ERROR);
+            throw new HttpException(CodeEnum.REMOTE_SERVER_ERROR);
         }
     }
 }

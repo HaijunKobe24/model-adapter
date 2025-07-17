@@ -1,4 +1,4 @@
-package cn.unipus.modeladapter.remote.starter.common.constant;
+package cn.unipus.modeladapter.base.common.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,9 @@ public enum CodeEnum {
 
     SUCCESS(1, "success"),
 
-    REMOTE_SERVER_ERROR(501, "remote server error");
+    PARAM_ERROR(199, "param check error"),
+
+    SERVER_ERROR(500, "server error");
 
     private final Integer code;
 

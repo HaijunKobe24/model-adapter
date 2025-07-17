@@ -1,6 +1,6 @@
 package cn.unipus.modeladapter.api.grpc.interceptor;
 
-import cn.hutool.core.exceptions.ValidateException;
+import cn.hutool.core.exceptions.StatefulException;
 import cn.unipus.modeladapter.remote.starter.common.exception.HttpException;
 import com.google.common.collect.Maps;
 import io.grpc.*;
@@ -18,8 +18,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.function.Function;
 
-import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.PARAM_ERROR;
-import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.SERVER_ERROR;
+import static cn.unipus.modeladapter.base.common.constant.CodeEnum.PARAM_ERROR;
+import static cn.unipus.modeladapter.base.common.constant.CodeEnum.SERVER_ERROR;
 
 /**
  * gRPC统一异常处理拦截器
@@ -49,14 +49,14 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
      * 异常类型-异常码获取器 映射关系
      */
     private static final Map<Class<? extends Exception>, Function<Exception, Pair<Integer,
-            String>>> EXP_MAP = Maps.newHashMap();
+            String>>> EXP_MAP = Maps.newLinkedHashMap();
 
     static {
         EXP_MAP.put(MethodArgumentNotValidException.class, PARAM_ERR_GETTER);
         EXP_MAP.put(BindException.class, PARAM_ERR_GETTER);
         EXP_MAP.put(ConstraintViolationException.class, PARAM_ERR_GETTER);
-        EXP_MAP.put(ValidateException.class, e -> {
-            ValidateException exp = (ValidateException) e;
+        EXP_MAP.put(StatefulException.class, e -> {
+            StatefulException exp = (StatefulException) e;
             return Pair.of(exp.getStatus(), exp.getMessage());
         });
         EXP_MAP.put(HttpException.class, e -> {
@@ -131,8 +131,9 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
         Method newBuilderMethod = statusClass.getMethod("newBuilder");
         Object statusBuilder = newBuilderMethod.invoke(null);
         // 获取异常信息
-        Pair<Integer, String> pair = EXP_MAP.getOrDefault(exp.getClass(), SERVER_ERR_GETTER)
-                .apply(exp);
+        Pair<Integer, String> pair = EXP_MAP.entrySet().stream()
+                .filter(e -> e.getKey().isAssignableFrom(exp.getClass())).findFirst()
+                .map(Map.Entry::getValue).orElse(SERVER_ERR_GETTER).apply(exp);
         // 设置错误码和消息
         Method setCodeMethod = statusBuilder.getClass().getMethod("setCode", int.class);
         Object builderWithCode = setCodeMethod.invoke(statusBuilder, pair.getLeft());
