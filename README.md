@@ -542,13 +542,13 @@ spring.jpa.properties.hibernate.format_sql=true
 
 ## 🏢 许可证
 
-本项目为私有项目，版权归外研社所有。
+本项目为私有项目，版权归 https://github.com/HaijunKobe24 所有。
 
 ## 📞 联系方式
 
-- **开发团队**：外研社技术团队
-- **项目地址**：https://git.unipus.cn/birdflock/model-adapter
-- **文档地址**：详见项目内CLAUDE.md文件
+- **开发团队**：HaijunKobe24
+- **项目地址**：https://github.com/HaijunKobe24/model-adapter.git
+- **文档地址**：详见项目内README.md文件
 - **Nexus仓库**：http://nexus-hw.unipus.cn:8081/nexus/
 
 ---

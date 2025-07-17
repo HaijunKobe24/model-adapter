@@ -9,30 +9,6 @@ message Status {
 }
 
 // 请求消息
-message CopyCourseRequestPO {
-    string bookId = 1; // 源课程ID
-    string openId = 2; // 操作人openID
-}
-
-// 响应消息
-message CopyCourseResponsePO {
-    Status status = 1;
-    CopyCourseDataPO data = 2; // 响应数据
-}
-
-// 响应数据结构
-message CopyCourseDataPO {
-    string newBookId = 1; // 新iPublish教材ID
-    repeated UnitMappingPO unitMappings = 2; // 自建章节的映射关系
-}
-
-// 单元映射结构
-message UnitMappingPO {
-    string sourceUnitId = 1; // 源单元ID(包含自建/官方标识)
-    string newUnitId = 2; // 新单元ID
-}
-
-// 请求消息
 message CreateUnitRequestPO {
     string bookId = 1; // 自建教材bookIdID
     string name = 2; // 单元名称
@@ -58,78 +34,6 @@ message PublishCourseRequestPO {
 // 响应消息
 message PublishCourseResponsePO {
     Status status = 1;
-}
-
-// 查询单元状态请求
-message QueryUnitStatusRequestPO {
-    string bookId = 1; // 课程ID
-}
-
-// 查询单元状态响应
-message QueryUnitStatusResponsePO {
-    Status status = 1;
-    repeated UnitStatusPO unitStatusList = 2; // 单元状态列表
-}
-
-// 单元状态
-message UnitStatusPO {
-    string unitId = 1; // 单元ID
-    string status = 2; // 单元状态()
-}
-
-// 请求消息类型
-message CustomCourseStructRequestPO {
-  string bookId = 1; // 官方教材ID
-}
-
-// 响应消息类型
-message CustomCourseStructResponsePO {
-    Status status = 1;
-    CustomCourseStructDataPO data = 2; // 返回数据
-}
-
-// 结构化课程内容数据结构
-message CustomCourseStructDataPO {
-    repeated CourseStructPO courseStruct = 1; // 课程结构
-}
-
-// 课程结构
-message CourseStructPO {
-    string bookId = 1; // 教材ID
-    string unitStruct = 2; // 单元结构列表
-}
-
-// 课程结构
-message CourseStructPO2 {
-    string bookId = 1; // 教材ID
-    repeated UnitStructPO unitStruct = 2; // 单元结构列表
-}
-
-// 单元结构
-message UnitStructPO {
-    string id = 1; // 节点唯一ID
-    string text = 2; // 节点文本内容
-    int32 number = 3; // 单元排序（章节序号）
-    string type = 4; // 节点类型，如 h1、h2、insert-video、question-block 等
-    string createdType = 5; // 节点创建类型，如 customized
-    repeated BlockStructPO blockStruct = 6; // 区块结构列表
-}
-
-// 区块结构
-message BlockStructPO {
-    string id = 1; // 节点唯一ID
-    string text = 2; // 节点文本内容
-    string type = 3; // 节点类型，如 h1、h2、insert-video、question-block 等
-    string createdType = 4; // 节点创建类型，如 customized
-    int32 wordCount = 5; // 字数统计
-    string questId = 6; // 题目ID（仅题目节点有）
-    string questVersion = 7; // 题目版本（仅题目节点有）
-    int32 subQuestionCount = 8; // 子题数量（仅题目节点有）
-    repeated int32 subQuestionScore = 9; // 子题分数列表（仅题目节点有）
-    repeated bool isScore = 10; // 子题是否计分（仅题目节点有）
-    repeated bool isJudgment = 11; // 子题是否判分（仅题目节点有）
-    string questionType = 12; // 题目类型（仅题目节点有）
-    repeated BlockStructPO children = 13; // 子节点列表，递归结构
 }
 
 //修改单元名称请求消息

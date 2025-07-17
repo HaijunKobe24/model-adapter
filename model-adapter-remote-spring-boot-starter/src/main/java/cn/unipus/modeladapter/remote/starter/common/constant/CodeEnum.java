@@ -15,6 +15,8 @@ public enum CodeEnum {
 
     SUCCESS(1, "success"),
 
+    PARAM_ERROR(199, "param check error"),
+
     SERVER_ERROR(500, "remote server error");
 
     private final Integer code;

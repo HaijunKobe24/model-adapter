@@ -15,9 +15,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "http.course")
 public class CourseRemoteProperties extends HttpRemoteProperties {
-
     private String structSyncUri;
-    private TokenConfig token;
-
-
+    private TokenProperties token;
 }

@@ -51,6 +51,11 @@
             <!--            <optional>true</optional>-->
         </dependency>
 
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
         <!-- QS Common -->
         <dependency>
             <groupId>cn.unipus</groupId>

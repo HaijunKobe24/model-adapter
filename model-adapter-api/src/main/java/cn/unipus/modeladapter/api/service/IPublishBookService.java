@@ -1,5 +1,6 @@
 package cn.unipus.modeladapter.api.service;
 
+import cn.hutool.core.exceptions.ValidateException;
 import cn.unipus.modeladapter.api.dto.CopyCourseDataDTO;
 import cn.unipus.modeladapter.api.dto.UnitMappingDTO;
 import cn.unipus.modeladapter.base.common.utils.BookUtils;
@@ -8,14 +9,14 @@ import cn.unipus.modeladapter.base.db.repository.BookRepository;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.IPublishTemplate;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.dto.AccessTokenRequest;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.dto.BookStructDTO;
-import cn.unipus.qs.common.em.CommonApiCodeEnum;
-import cn.unipus.qs.common.exception.ValidateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.PARAM_ERROR;
 
 /**
  * iPublish 教材服务
@@ -61,7 +62,8 @@ public class IPublishBookService {
     public String addBookNode(String bookId, String nodeName) {
         String nodeId = bookRepository.findById(bookId)
                 .map(b -> iPublishNodeService.addBookNode(b.getId(), nodeName, b.getCreator()))
-                .orElseThrow(() -> new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR));
+                .orElseThrow(
+                        () -> new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg()));
         log.info("新增教材节点：bookId：{}，nodeId：{}", bookId, nodeId);
         return nodeId;
     }
@@ -115,7 +117,7 @@ public class IPublishBookService {
                 AccessTokenRequest.of(openId));
         if (bookStruct == null) {
             log.error("官方教材不存在：{}", bookId);
-            throw new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR);
+            throw new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg());
         }
         String id = BookUtils.genBookId();
         bookRepository.save(this.createBook(id, bookId, openId));
@@ -135,8 +137,8 @@ public class IPublishBookService {
      */
     private CopyCourseDataDTO copyCustomBook(String bookId, String openId) {
         log.info("复制自建教材，bookId: {}", bookId);
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR));
+        Book book = bookRepository.findById(bookId).orElseThrow(
+                () -> new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg()));
         String id = BookUtils.genBookId();
         // 复制此教材的自建单元
         Map<String, String> destIdBySrcId = iPublishNodeService.copyBookNodes(book.getId(), id,
@@ -158,8 +160,8 @@ public class IPublishBookService {
      * @param id 教材ID
      */
     private void bookValid(String id) {
-        bookRepository.findById(id)
-                .orElseThrow(() -> new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR));
+        bookRepository.findById(id).orElseThrow(
+                () -> new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg()));
     }
 
     /**

@@ -1,5 +1,6 @@
 package cn.unipus.modeladapter.api.service;
 
+import cn.hutool.core.exceptions.ValidateException;
 import cn.unipus.modeladapter.base.common.constant.ContentStatusEnum;
 import cn.unipus.modeladapter.base.common.constant.ContentTypeEnum;
 import cn.unipus.modeladapter.base.common.utils.BookUtils;
@@ -7,8 +8,6 @@ import cn.unipus.modeladapter.base.db.entity.BookUnit;
 import cn.unipus.modeladapter.base.db.repository.BookUnitRepository;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.IPublishTemplate;
 import cn.unipus.modeladapter.remote.starter.http.ipublish.dto.*;
-import cn.unipus.qs.common.em.CommonApiCodeEnum;
-import cn.unipus.qs.common.exception.ValidateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,6 +15,8 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static cn.unipus.modeladapter.remote.starter.common.constant.CodeEnum.PARAM_ERROR;
 
 /**
  * iPublish 教材单元服务
@@ -61,8 +62,8 @@ public class IPublishNodeService {
      * @param nodeName 节点名称
      */
     public void updateBookNode(String nodeId, String nodeName) {
-        BookUnit unit = bookUnitRepository.findById(nodeId)
-                .orElseThrow(() -> new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR));
+        BookUnit unit = bookUnitRepository.findById(nodeId).orElseThrow(
+                () -> new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg()));
         SaveCustomContentRequest request = new SaveCustomContentRequest();
         request.setBizId(nodeId);
         request.setName(nodeName);
@@ -83,10 +84,10 @@ public class IPublishNodeService {
      */
     public void deleteBookNode(String nodeId) {
         // 检查本地节点，检查节点状态
-        BookUnit unit = bookUnitRepository.findById(nodeId)
-                .orElseThrow(() -> new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR));
+        BookUnit unit = bookUnitRepository.findById(nodeId).orElseThrow(
+                () -> new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg()));
         if (Objects.equals(unit.getStatus(), ContentStatusEnum.PUBLISHED.getStatus())) {
-            throw new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR);
+            throw new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg());
         }
         iPublishTemplate.deleteCustomContentByBizIds(
                 CustomContentIdRequest.of(Collections.singletonList(nodeId)),
@@ -146,7 +147,7 @@ public class IPublishNodeService {
         if (!CollectionUtils.isEmpty(unitsByPub.get(false))) {
             log.error("存在未发布的单元：{}", unitsByPub.get(false).stream().map(BookUnit::getId)
                     .collect(Collectors.toList()));
-            throw new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR);
+            throw new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg());
         }
         List<String> unitIds = unitsByPub.get(true).stream().map(BookUnit::getId)
                 .collect(Collectors.toList());
@@ -158,7 +159,7 @@ public class IPublishNodeService {
         Map<String, String> destIdBySrcId = copyResult.getBizIdMapping();
         if (CollectionUtils.isEmpty(destIdBySrcId) || destIdBySrcId.size() < units.size()) {
             log.error("复制教材单元失败：源ID：{}，复制结果ID：{}", unitIds, destIdBySrcId);
-            throw new ValidateException(CommonApiCodeEnum.PARAM_CHECK_ERROR);
+            throw new ValidateException(PARAM_ERROR.getCode(), PARAM_ERROR.getMsg());
         }
         return destIdBySrcId;
     }
