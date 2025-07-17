@@ -32,7 +32,7 @@ public class IPublishBookServiceTest {
     @Test
     public void testConsumeRawMsg() {
         String msg = "{\"bizId\":\"c1ca297a-777e-4674-b198-d08734081f48\",\"dataPackage\":\"{\\\"courseId\\\":\\\"course-v3:Unipus+testzdyjccs+20250707073246:custom+11205+1752543041756\\\",\\\"instanceId\\\":\\\"course-v3:Unipus+testzdyjccs+20250707073246:custom+11205+1752543041756\\\",\\\"openId\\\":\\\"4a8c470eb36a4236b83142b533ab270f\\\",\\\"userId\\\":2461646}\",\"event\":\"ADD\",\"type\":1}";
-        iPublishContentListener.consumeRawMsg(msg);
+        iPublishContentListener.consume(msg);
     }
     /**
      * 测试添加教材节点
