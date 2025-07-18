@@ -58,9 +58,8 @@ public class IPublishContentListener {
             log.error("unit not found: {}", msg.getBizId());
             return;
         }
-        List<UnitStructDTO> unitList = bookService.courseBookNodes(unit.getBookId());
-        courseTemplate.structSync(
-                StructSyncRequest.of(JSONUtil.toJsonStr(unitList), unit.getBookId()),
+        List<UnitStructDTO> units = bookService.courseBookNodes(unit.getBookId());
+        courseTemplate.structSync(StructSyncRequest.of(JSONUtil.toJsonStr(units), unit.getBookId()),
                 unit.getCreator());
         unit.setStatus(msg.getStatus().byteValue());
         unit.setModified(new Date());
