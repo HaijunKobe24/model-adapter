@@ -54,6 +54,7 @@ The project is divided into several Maven modules:
     - `dto`: For Data Transfer Objects used in APIs.
 - **Configuration:** Application configuration is managed in `application.yml` files located in the `resources` directory of the `model-adapter-api` module.
 - **gRPC:** Protocol Buffers (`.proto` files) are used to define gRPC services and messages. These are located in `model-adapter-client/src/main/proto/`.
+- **Coding Style:** Before modifying a code file, understand and adhere to its existing coding style. If the file contains no code, refer to the style of similar files in the project.
 
 ## Important Files
 
