@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 监听 iPublish 内容变更消息
+ * 监听 iPublish 单元变更消息
  *
  * @author haijun.gao
  * @date 2025/7/2
  */
 @Slf4j
 @Component
-public class IPublishContentListener {
+public class UnitUpdateListener {
 
     @Resource
     private BookUnitRepository bookUnitRepository;
@@ -37,9 +37,9 @@ public class IPublishContentListener {
     @Resource
     private CourseTemplate courseTemplate;
 
-    @KafkaListener(topics = "#{iPublishContent.topic}", groupId = "#{iPublishContent.group}",
-            concurrency = "#{iPublishContent.concurrency}",
-            properties = "max.poll.records=#{iPublishContent.maxRecords}")
+    @KafkaListener(topics = "#{unitUpdate.topic}", groupId = "#{unitUpdate.group}",
+            concurrency = "#{unitUpdate.concurrency}",
+            properties = "max.poll.records=#{unitUpdate.maxRecords}")
     public void consume(String message) {
         log.info("msg: {}", message);
         IPublishContentMsg msg = JSONUtil.toBean(message, IPublishContentMsg.class);

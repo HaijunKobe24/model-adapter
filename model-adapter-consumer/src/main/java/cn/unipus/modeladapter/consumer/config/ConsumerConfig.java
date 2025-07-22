@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class ConsumerConfig {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.kafka.consumer.ipublish-content")
-    public ConsumerProperties iPublishContent() {
+    @ConfigurationProperties(prefix = "spring.kafka.consumer.unit-update")
+    public ConsumerProperties unitUpdate() {
         return new ConsumerProperties();
     }
 }

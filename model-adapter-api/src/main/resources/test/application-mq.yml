@@ -12,7 +12,7 @@ spring:
       enable-auto-commit: true
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      ipublish-content:
+      unit-update:
         topic: test-ipublish-custom-content-Published
         group: model-adapter
         concurrency: 1
