@@ -5,12 +5,10 @@ import cn.unipus.modeladapter.base.common.constant.ContentStatusEnum;
 import cn.unipus.modeladapter.base.db.entity.BookUnit;
 import cn.unipus.modeladapter.base.db.repository.BookUnitRepository;
 import cn.unipus.modeladapter.base.service.BookService;
-import cn.unipus.modeladapter.consumer.config.ConsumerProperties;
 import cn.unipus.modeladapter.consumer.model.IPublishContentMsg;
 import cn.unipus.modeladapter.remote.starter.http.course.CourseTemplate;
 import cn.unipus.modeladapter.remote.starter.http.course.dto.StructSyncRequest;
 import cn.unipus.modeladapter.remote.starter.http.course.dto.UnitStructDTO;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -29,10 +27,6 @@ import java.util.Objects;
 @Slf4j
 @Component
 public class IPublishContentListener {
-
-    @Getter
-    @Resource
-    private ConsumerProperties iPublishContent;
 
     @Resource
     private BookUnitRepository bookUnitRepository;
