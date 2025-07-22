@@ -70,6 +70,13 @@ model-adapter/ (parent pom)
 - HTTP client wrappers with caching (Guava Cache) and token management
 - Model classes for external API data transfer
 
+**Client SDK (`model-adapter-client`)**:
+- gRPC client implementation with `CourseClient` for course service operations
+- Type-safe DTO classes for all operations: `CreateUnitRequestDTO`, `CreateUnitResponseDTO`, `PublishCourseRequestDTO`, etc.
+- `ModelConverter` utility for bidirectional DTO ↔ Protobuf conversion
+- Blocking stub pattern for synchronous gRPC communication
+- Lombok annotations for clean DTO code generation
+
 **Message Processing (`model-adapter-consumer`)**:
 - Kafka consumer configuration and listeners
 - Asynchronous processing of content updates from external systems
@@ -98,8 +105,10 @@ model-adapter/ (parent pom)
 
 **gRPC Services**:
 - Protocol Buffers definitions in `model-adapter-client/src/main/proto/`
-- Main service: `CourseService` with operations: `copyCourse`, `createUnit`, `publishCourse`, `queryUnitStatus`, `customCourseStruct`
+- Main service: `CourseService` with operations: `createUnit`, `publishCourse`, `updateUnitName`, `deleteUnit`
 - Generated Java classes for type-safe inter-service communication
+- Client SDK with `CourseClient` class providing blocking stub operations
+- DTO layer with conversion utilities (`ModelConverter`) for type-safe Java interfaces
 - Interceptors for exception handling and logging
 - Service runs on port 6565 with reflection enabled for testing
 
@@ -152,6 +161,7 @@ model-adapter/ (parent pom)
 - Separate DTOs for different integration points
 - Use MapStruct for object mapping between layers
 - Lombok annotations for reducing boilerplate code
+- Client SDK module provides type-safe gRPC client interfaces
 
 ## Testing and Documentation
 

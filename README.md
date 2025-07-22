@@ -36,7 +36,7 @@ model-adapter/
 |------|------|--------|
 | **model-adapter-api** | REST API、gRPC服务、业务逻辑 | Spring Boot, Spring MVC, gRPC |
 | **model-adapter-base** | 数据层、实体模型、Repository | Spring Data JPA, MySQL/H2 |
-| **model-adapter-client** | gRPC客户端、Protocol Buffers | gRPC, Protobuf |
+| **model-adapter-client** | gRPC客户端、Protocol Buffers、DTO转换 | gRPC, Protobuf, Lombok |
 | **model-adapter-consumer** | 消息消费、异步处理 | Spring Kafka |
 | **model-adapter-remote-starter** | 远程服务SDK、自动配置 | Spring Boot Starter, WebClient |
 
@@ -136,11 +136,10 @@ curl -X GET "http://localhost:8081/api/adapter/ipublish/getBookStruct?openId=use
 #### 核心服务
 
 **CourseService** - 课程管理服务
-- `copyCourse` - 复制课程
 - `createUnit` - 创建单元
 - `publishCourse` - 发布课程
-- `queryUnitStatus` - 查询单元状态
-- `customCourseStruct` - 获取自建课程结构
+- `updateUnitName` - 更新单元名称
+- `deleteUnit` - 删除单元
 
 Protocol Buffers定义文件位于 `model-adapter-client/src/main/proto/`
 
@@ -345,11 +344,21 @@ private IPublishTemplate iPublishTemplate;
 @Autowired
 private CourseTemplate courseTemplate;
 
+// 注入gRPC客户端
+@Autowired
+private CourseClient courseClient;
+
 // 使用iPublish服务
 BookStructDTO bookStruct = iPublishTemplate.getBookStruct("book123");
 
 // 使用课程服务
 StructSyncResponse response = courseTemplate.syncStruct(request);
+
+// 使用gRPC客户端
+CreateUnitRequestDTO request = new CreateUnitRequestDTO();
+request.setBookId("book123");
+request.setName("新单元");
+CreateUnitResponseDTO response = courseClient.createUnit(request);
 ```
 
 ## 📈 监控和运维
@@ -439,8 +448,8 @@ curl -X POST "http://localhost:8081/api/adapter/ipublish/saveCustomContent" \
   -d '{"bookId":"book123","content":"test content"}'
 
 # 使用grpcurl测试gRPC API
-grpcurl -plaintext -d '{"bookId":"book123","openId":"user123"}' \
-  localhost:6565 cn.unipus.modelAdapter.api.proto.client.service.CourseService/copyCourse
+grpcurl -plaintext -d '{"bookId":"book123","name":"新单元"}' \
+  localhost:6565 cn.unipus.modelAdapter.api.proto.client.service.CourseService/createUnit
 ```
 
 ## 🔧 开发指南
@@ -510,10 +519,12 @@ spring.jpa.properties.hibernate.format_sql=true
 - ✅ 数据库连接池优化 (HikariCP)
 
 ### 最新更新 (当前版本)
-- 🆕 优化数据库配置和连接池参数
-- 🆕 增强gRPC拦截器异常处理
-- 🆕 完善Kafka集群配置
-- 🆕 简化应用配置，专注核心功能
+- 🆕 新增课程服务gRPC客户端SDK (`CourseClient`)
+- 🆕 添加类型安全的DTO层和自动转换工具 (`ModelConverter`)
+- 🆕 更新gRPC服务操作：支持单元创建、发布、更新和删除
+- 🆕 集成Lombok依赖，简化DTO代码
+- 🆕 优化消息消费者代码结构和可读性
+- 🆕 统一接口调用方式，提高代码一致性
 
 ### 未来计划
 - 🔄 Redis缓存集成
