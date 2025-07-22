@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
  * 课程服务客户端
  *
  * @author haijun.gao
- * @since 2024-07-22
+ * @date 2024/7/22
  */
 @AllArgsConstructor
 public class CourseClient {
@@ -20,8 +20,8 @@ public class CourseClient {
     /**
      * 新建单元
      *
-     * @param requestDTO request DTO
-     * @return response DTO
+     * @param requestDTO 新建单元请求参数
+     * @return 新建单元响应结果
      */
     public CreateUnitResponseDTO createUnit(CreateUnitRequestDTO requestDTO) {
         CreateUnitRequestPO requestProto = ModelConverter.toProto(requestDTO);
@@ -32,8 +32,8 @@ public class CourseClient {
     /**
      * 课程发布
      *
-     * @param requestDTO request DTO
-     * @return StatusDTO
+     * @param requestDTO 课程发布请求参数
+     * @return 状态响应结果
      */
     public StatusDTO publishCourse(PublishCourseRequestDTO requestDTO) {
         PublishCourseRequestPO requestProto = ModelConverter.toProto(requestDTO);
@@ -44,8 +44,8 @@ public class CourseClient {
     /**
      * 修改单元名称
      *
-     * @param requestDTO request DTO
-     * @return StatusDTO
+     * @param requestDTO 修改单元名称请求参数
+     * @return 状态响应结果
      */
     public StatusDTO updateUnitName(UpdateUnitNameRequestDTO requestDTO) {
         UpdateUnitNameRequestPO requestProto = ModelConverter.toProto(requestDTO);
@@ -56,8 +56,8 @@ public class CourseClient {
     /**
      * 删除单元
      *
-     * @param requestDTO request DTO
-     * @return StatusDTO
+     * @param requestDTO 删除单元请求参数
+     * @return 状态响应结果
      */
     public StatusDTO deleteUnit(DeleteUnitRequestDTO requestDTO) {
         DeleteUnitRequestPO requestProto = ModelConverter.toProto(requestDTO);
