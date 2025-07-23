@@ -27,3 +27,12 @@ spring:
           batch_size: 20
         order_inserts: true
         order_updates: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
