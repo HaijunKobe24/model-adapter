@@ -102,19 +102,25 @@ mvn test -Dtest=IPublishBookServiceTest
 
 ### REST API
 
-**服务地址**：`http://localhost:8081/api/adapter`
+**服务地址**：`http://localhost:8081`  
+**上下文路径**：`/api/adapter`  
+**完整基础URL**：`http://localhost:8081/api/adapter`
+
+> **注意**：所有REST API端点都需要包含上下文路径 `/api/adapter` 作为前缀。这是在 `application.yml` 中通过 `server.servlet.context-path` 配置的。
 
 #### 主要接口
 
 - **教材管理**
-  - `GET /api/adapter/ipublish/getBookStruct` - 获取教材结构
-  - `POST /api/adapter/ipublish/copyContent` - 复制教材内容
+  - `POST /api/adapter/ipublish/copyBook` - 教材复制
+    - 参数: `openId` (用户openId), `sourceBookId` (被复制的教材ID)
+  - `POST /api/adapter/ipublish/book/publish` - 发布教材
+    - 参数: `bookId` (教材ID)
   
-- **内容管理**
-  - `POST /api/adapter/ipublish/saveCustomContent` - 保存自建内容
-  - `POST /api/adapter/ipublish/publishCustomContent` - 发布自建内容
+- **节点管理**
+  - `POST /api/adapter/ipublish/node/add` - 添加教材单元节点
+    - 参数: `bookId` (教材ID), `unitName` (节点名称), `openId` (用户openId)
 
-- **健康检查**
+- **健康检查和监控**
   - `GET /api/adapter/actuator/health` - 应用健康状态
   - `GET /api/adapter/actuator/info` - 应用信息
 
@@ -123,9 +129,23 @@ mvn test -Dtest=IPublishBookServiceTest
 项目提供了完整的cURL命令集合，位于 `model-adapter-api/doc/curl.txt`
 
 ```bash
-# 获取教材结构示例
-curl -X GET "http://localhost:8081/api/adapter/ipublish/getBookStruct?openId=user123&bookId=book123" \
-  -H "Content-Type: application/json"
+# 教材复制示例
+curl -X POST "http://localhost:8081/api/adapter/ipublish/copyBook" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "openId=user123&sourceBookId=book123"
+
+# 添加教材单元节点示例
+curl -X POST "http://localhost:8081/api/adapter/ipublish/node/add" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "bookId=book123&unitName=新单元&openId=user123"
+
+# 发布教材示例
+curl -X POST "http://localhost:8081/api/adapter/ipublish/book/publish" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "bookId=book123"
+
+# 健康检查示例  
+curl -X GET "http://localhost:8081/api/adapter/actuator/health"
 ```
 
 ### gRPC API
@@ -443,9 +463,9 @@ mvn test -Dgroups=integration
 
 ```bash
 # 使用cURL测试REST API
-curl -X POST "http://localhost:8081/api/adapter/ipublish/saveCustomContent" \
-  -H "Content-Type: application/json" \
-  -d '{"bookId":"book123","content":"test content"}'
+curl -X POST "http://localhost:8081/api/adapter/ipublish/copyBook" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "openId=user123&sourceBookId=book123"
 
 # 使用grpcurl测试gRPC API
 grpcurl -plaintext -d '{"bookId":"book123","name":"新单元"}' \
