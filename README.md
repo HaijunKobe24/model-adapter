@@ -188,7 +188,7 @@ grpcurl -plaintext localhost:6565 describe CourseService
 ### 核心实体
 
 - **Book** - 教材基础信息，包含refId外部引用
-- **BookUnit** - 教材单元，支持状态管理 (0=草稿, 1=已发布) 和排序
+- **BookUnit** - 教材单元，支持状态管理 (0=草稿, 2=已发布) 和排序
 - **Course** - 课程信息
 - **Content** - 教材内容节点
 
