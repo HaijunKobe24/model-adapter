@@ -225,11 +225,6 @@ grpc:
   enabled: true
   port: 6565
   enable-reflection: true
-  executor:
-    core-pool-size: 4
-    max-pool-size: 16
-    keep-alive-time: 60000
-    queue-size: 500
 ```
 
 ### 远程服务配置
