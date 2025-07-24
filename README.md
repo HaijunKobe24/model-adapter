@@ -38,7 +38,7 @@ model-adapter/
 | **model-adapter-base** | 数据层、实体模型、Repository | Spring Data JPA, MySQL/H2 |
 | **model-adapter-client** | gRPC客户端、Protocol Buffers、DTO转换 | gRPC, Protobuf, Lombok |
 | **model-adapter-consumer** | 消息消费、异步处理 | Spring Kafka |
-| **model-adapter-remote-starter** | 远程服务SDK、自动配置 | Spring Boot Starter, WebClient |
+| **model-adapter-remote-spring-boot-starter** | 远程服务SDK、自动配置 | Spring Boot Starter, WebClient |
 
 ## 🛠️ 技术栈
 
