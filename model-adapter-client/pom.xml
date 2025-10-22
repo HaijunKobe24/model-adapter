@@ -18,6 +18,17 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>cn.unipus</groupId>
+            <artifactId>model-adapter-base</artifactId>
+        </dependency>
+
+        <!-- protoc-gen-validate for gRPC validation -->
+        <dependency>
+            <groupId>build.buf.protoc-gen-validate</groupId>
+            <artifactId>pgv-java-grpc</artifactId>
+            <version>0.6.13</version>
+        </dependency>
         <!-- gRPC dependencies -->
         <dependency>
             <groupId>io.grpc</groupId>
@@ -58,6 +69,36 @@
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
+                <configuration>
+                    <protocArtifact>
+                        com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>
+                        io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>validate</id>
+                        <goals>
+                            <goal>compile-custom</goal>
+                        </goals>
+                        <configuration>
+                            <pluginId>validate</pluginId>
+                            <pluginArtifact>
+                                build.buf.protoc-gen-validate:protoc-gen-validate:0.6.13:exe:${os.detected.classifier}
+                            </pluginArtifact>
+                            <pluginParameter>lang=java</pluginParameter>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

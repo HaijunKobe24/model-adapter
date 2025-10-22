@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/wrappers.proto";
+import "validate/validate.proto";
 package cn.unipus.modeladapter.api.proto.client.model;
 option java_multiple_files = true;
 
@@ -10,8 +11,8 @@ message Status {
 
 // 请求消息
 message CreateUnitRequestPO {
-    string bookId = 1; // 自建教材bookIdID
-    string name = 2; // 单元名称
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 自建教材bookIdID
+    string name = 2 [(validate.rules).string = {min_len: 1, max_len: 100}]; // 单元名称
 }
 
 // 响应消息
@@ -28,7 +29,7 @@ message CreateUnitDataPO {
 
 // 请求消息
 message PublishCourseRequestPO {
-    string bookId = 1; // bookID
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // bookID
 }
 
 // 响应消息
@@ -38,9 +39,9 @@ message PublishCourseResponsePO {
 
 // 修改单元名称请求消息
 message UpdateUnitNameRequestPO {
-    string bookId = 1; // 教材ID
-    string unitId = 2; // 单元ID
-    string name = 3; // 新单元名称
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 教材ID
+    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 单元ID
+    string name = 3 [(validate.rules).string = {min_len: 1, max_len: 100}]; // 新单元名称
 }
 
 // 修改单元名称响应消息
@@ -50,8 +51,8 @@ message UpdateUnitNameResponsePO {
 
 // 删除单元请求消息
 message DeleteUnitRequestPO {
-    string bookId = 1; // 教材ID
-    string unitId = 2; // 单元ID
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 教材ID
+    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 单元ID
 }
 
 //删除单元响应消息
