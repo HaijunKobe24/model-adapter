@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
 /**
  * gRPC 参数校验拦截器
  * 使用 protoc-gen-validate 原生接口进行参数校验
- * 
+ *
  * @author Claude
  */
 @Slf4j
@@ -31,10 +31,8 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
     }
 
     @Override
-    public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
-            ServerCall<ReqT, RespT> call,
-            Metadata headers,
-            ServerCallHandler<ReqT, RespT> next) {
+    public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> call,
+            Metadata headers, ServerCallHandler<ReqT, RespT> next) {
 
         String methodName = call.getMethodDescriptor().getFullMethodName();
         log.debug("{} [{}] Intercepting gRPC call", LOG_PREFIX, methodName);
@@ -50,15 +48,16 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
                     log.debug("{} [{}] Validation passed", LOG_PREFIX, methodName);
                     super.onMessage(message);
                 } catch (ValidationException e) {
-                    log.warn("{} [{}] Validation failed: {}", LOG_PREFIX, methodName, e.getMessage());
-                    call.close(Status.INVALID_ARGUMENT
-                            .withDescription("参数校验失败: " + e.getMessage())
-                            .withCause(e), new Metadata());
+                    log.warn("{} [{}] Validation failed: {}", LOG_PREFIX, methodName,
+                            e.getMessage());
+                    call.close(Status.INVALID_ARGUMENT.withDescription(
+                            "参数校验失败: " + e.getMessage()).withCause(e), new Metadata());
                 } catch (Exception e) {
-                    log.warn("{} [{}] Unexpected validation error: {}", LOG_PREFIX, methodName, e.getMessage());
-                    call.close(Status.INTERNAL
-                            .withDescription("校验过程发生异常: " + e.getMessage())
-                            .withCause(e), new Metadata());
+                    log.warn("{} [{}] Unexpected validation error: {}", LOG_PREFIX, methodName,
+                            e.getMessage());
+                    call.close(
+                            Status.INTERNAL.withDescription("校验过程发生异常: " + e.getMessage())
+                                    .withCause(e), new Metadata());
                 }
             }
         };
@@ -66,14 +65,15 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
 
     /**
      * 校验消息参数
-     * 
-     * @param message 要校验的消息
+     *
+     * @param message    要校验的消息
      * @param methodName 方法名称（用于日志）
      * @throws ValidationException 校验失败时抛出异常
      */
     private void validateMessage(Object message, String methodName) throws ValidationException {
         if (!(message instanceof Message)) {
-            log.debug("{} [{}] Message is not a protobuf Message, skipping validation", LOG_PREFIX, methodName);
+            log.debug("{} [{}] Message is not a protobuf Message, skipping validation", LOG_PREFIX,
+                    methodName);
             return;
         }
 
@@ -87,7 +87,8 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
             // 执行校验，如果校验失败会抛出ValidationException
             validator.assertValid(protoMessage);
         } else {
-            log.debug("{} [{}] No validator found for message type: {}", LOG_PREFIX, methodName, className);
+            log.debug("{} [{}] No validator found for message type: {}", LOG_PREFIX, methodName,
+                    className);
         }
     }
 }
