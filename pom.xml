@@ -198,6 +198,19 @@
                                 <goal>compile-custom</goal>
                             </goals>
                         </execution>
+                        <execution>
+                            <id>validate</id>
+                            <goals>
+                                <goal>compile-custom</goal>
+                            </goals>
+                            <configuration>
+                                <pluginId>validate</pluginId>
+                                <pluginArtifact>
+                                    build.buf.protoc-gen-validate:protoc-gen-validate:0.6.13:exe:${os.detected.classifier}
+                                </pluginArtifact>
+                                <pluginParameter>lang=java</pluginParameter>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
             </plugins>
