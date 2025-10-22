@@ -21,7 +21,7 @@
         <grpc.version>1.37.0</grpc.version>
         <protobuf.version>3.7.1</protobuf.version>
         <protobuf-java-util.version>3.12.0</protobuf-java-util.version>
-        <pgv-java-grpc.version>1.0.2</pgv-java-grpc.version>
+        <pgv-java-stub.version>1.0.2</pgv-java-stub.version>
         <grpc-spring-boot-starter.version>4.4.5</grpc-spring-boot-starter.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <guava.version>23.0</guava.version>
@@ -98,8 +98,9 @@
             <!-- protoc-gen-validate for gRPC validation -->
             <dependency>
                 <groupId>build.buf.protoc-gen-validate</groupId>
-                <artifactId>pgv-java-grpc</artifactId>
-                <version>${pgv-java-grpc.version}</version>
+                <artifactId>pgv-java-stub</artifactId>
+                <version>${pgv-java-stub.version}</version>
+                <scope>compile</scope>
             </dependency>
 
             <!-- gRPC Spring Boot Starter -->
@@ -214,7 +215,7 @@
                             <configuration>
                                 <pluginId>validate</pluginId>
                                 <pluginArtifact>
-                                    build.buf.protoc-gen-validate:protoc-gen-validate:${pgv-java-grpc.version}:exe:${os.detected.classifier}
+                                    build.buf.protoc-gen-validate:protoc-gen-validate:${pgv-java-stub.version}:exe:${os.detected.classifier}
                                 </pluginArtifact>
                                 <pluginParameter>lang=java</pluginParameter>
                             </configuration>
