@@ -11,8 +11,8 @@ message Status {
 
 // 请求消息
 message CreateUnitRequestPO {
-    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 自建教材bookIdID
-    string name = 2 [(validate.rules).string = {min_len: 1, max_len: 100}]; // 单元名称
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 64}]; // 自建教材bookIdID
+    string name = 2 [(validate.rules).string = {min_len: 1, max_len: 128}]; // 单元名称
 }
 
 // 响应消息
@@ -29,7 +29,7 @@ message CreateUnitDataPO {
 
 // 请求消息
 message PublishCourseRequestPO {
-    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // bookID
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 64}]; // bookID
 }
 
 // 响应消息
@@ -39,9 +39,9 @@ message PublishCourseResponsePO {
 
 // 修改单元名称请求消息
 message UpdateUnitNameRequestPO {
-    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 教材ID
-    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 单元ID
-    string name = 3 [(validate.rules).string = {min_len: 1, max_len: 100}]; // 新单元名称
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 64}]; // 教材ID
+    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 64}]; // 单元ID
+    string name = 3 [(validate.rules).string = {min_len: 1, max_len: 128}]; // 新单元名称
 }
 
 // 修改单元名称响应消息
@@ -51,11 +51,11 @@ message UpdateUnitNameResponsePO {
 
 // 删除单元请求消息
 message DeleteUnitRequestPO {
-    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 教材ID
-    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 50}]; // 单元ID
+    string bookId = 1 [(validate.rules).string = {min_len: 1, max_len: 64}]; // 教材ID
+    string unitId = 2 [(validate.rules).string = {min_len: 1, max_len: 64}]; // 单元ID
 }
 
-//删除单元响应消息
+// 删除单元响应消息
 message DeleteUnitResponsePO {
     Status status = 1;
 }
