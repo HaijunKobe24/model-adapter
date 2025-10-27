@@ -53,8 +53,7 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
                     call.close(Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e),
                             metadata);
                 } catch (Exception e) {
-                    log.error("{} [{}] Unexpected validation error: {}", LOG_PREFIX, methodName,
-                            e.getMessage());
+                    log.error("{} [{}] Unexpected validation error", LOG_PREFIX, methodName, e);
                     call.close(Status.INTERNAL.withDescription(e.getMessage()).withCause(e),
                             metadata);
                 }
