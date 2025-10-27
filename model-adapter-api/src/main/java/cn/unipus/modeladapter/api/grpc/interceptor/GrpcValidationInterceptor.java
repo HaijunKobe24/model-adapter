@@ -18,7 +18,7 @@ import org.springframework.core.annotation.Order;
  * @date 2025/10/23
  */
 @Slf4j
-@Order(0) // 最高优先级，在日志拦截器之前执行
+@Order(1)
 @GRpcGlobalInterceptor
 public class GrpcValidationInterceptor implements ServerInterceptor {
 

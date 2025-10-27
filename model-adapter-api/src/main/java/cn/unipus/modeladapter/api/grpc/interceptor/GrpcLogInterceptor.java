@@ -14,7 +14,7 @@ import org.springframework.core.annotation.Order;
  * @date 2025/7/9
  */
 @Slf4j
-@Order(1)
+@Order(0)
 @GRpcGlobalInterceptor
 public class GrpcLogInterceptor implements ServerInterceptor {
 
